@@ -24,7 +24,7 @@ abstract class Routes {
     return MaterialPageRoute(
       builder: (_) => BlocProvider(
         create: (context) => FilterCubit(),
-        child: const CardAddPage(),
+        child: MyHomePage(title: 'salom',),
       ),
     );
   }

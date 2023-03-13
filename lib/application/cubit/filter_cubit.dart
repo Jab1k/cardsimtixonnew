@@ -35,6 +35,13 @@ class FilterCubit extends Cubit<Filterstate> {
     emit(state);
   }
 
+  bool isError(bool a) {
+    if (a) {
+      return true;
+    }
+    return false;
+  }
+
   void addAlldatas({
     String? name,
     String? lastname,

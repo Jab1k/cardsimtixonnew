@@ -1,76 +1,237 @@
-// ignore_for_file: avoid_print
-
+import 'dart:math' as math;
+import 'package:cardsnew/application/cubit/filter_cubit.dart';
+import 'package:cardsnew/presentation/styles/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:awesome_card/awesome_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../application/cubit/filter_cubit.dart';
-class CardAddPage extends StatefulWidget {
-  const CardAddPage({super.key});
+import '../companents/chekdate.dart';
+
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key? key, required this.title}) : super(key: key);
+  final String title;
 
   @override
-  State<CardAddPage> createState() => _CardAddPageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _CardAddPageState extends State<CardAddPage> {
-  TextEditingController datecontroller = TextEditingController();
-  TextEditingController numbercontroller = TextEditingController();
-  TextEditingController namecontroller = TextEditingController();
-  TextEditingController imageindexcontroller = TextEditingController();
-  TextEditingController lastnamecontroller = TextEditingController();
-  TextEditingController pincodecontroller = TextEditingController();
-  TextEditingController typecontroller = TextEditingController();
+class _MyHomePageState extends State<MyHomePage> {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  String cardNumber = '';
+  String cardHolderName = '';
+  String expiryDate = '';
+  String cvv = '';
+  bool iserror = false;
+  bool showBack = false;
+
+  late FocusNode _focusNode;
+  TextEditingController cardNumberCtrl = TextEditingController();
+  TextEditingController expiryFieldCtrl = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode = FocusNode();
+    _focusNode.addListener(() {
+      setState(() {
+        _focusNode.hasFocus ? showBack = true : showBack = false;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FilterCubit, Filterstate>(
-      builder: (context, state) {
-        return Scaffold(
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Form(
+        key: formKey,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              TextFormField(
-                controller: namecontroller,
+              // ignore: prefer_const_constructors
+              SizedBox(
+                height: 40,
               ),
-              TextFormField(
-                controller: datecontroller,
+              CreditCard(
+                cardNumber: cardNumber,
+                cardExpiry: expiryDate,
+                cardHolderName: cardHolderName,
+                cvv: cvv,
+                showBackSide: showBack,
+                frontBackground: CardBackgrounds.black,
+                backBackground: CardBackgrounds.white,
+                showShadow: true,
+                // mask: getCardTypeMask(cardType: CardType.americanExpress),
               ),
-              TextFormField(
-                controller: numbercontroller,
+              const SizedBox(
+                height: 40,
               ),
-              TextFormField(
-                controller: lastnamecontroller,
-              ),
-              TextFormField(
-                controller: imageindexcontroller,
-              ),
-              TextFormField(
-                keyboardType: TextInputType.number,
-                controller: pincodecontroller,
-              ),
-              TextFormField(
-                controller: typecontroller,
-              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                    ),
+                    child: TextFormField(
+                      validator: (s) {
+                        if (s?.isEmpty ?? true) {
+                          return "Karta Raqamni Kiriting";
+                        }
+                        return null;
+                      },
+                      controller: cardNumberCtrl,
+                      keyboardType: TextInputType.number,
+                      decoration:
+                          const InputDecoration(hintText: 'Karta raqam'),
+                      maxLength: 16,
+                      onChanged: (value) {
+                        final newCardNumber = value.trim();
+                        var newStr = '';
+                        final step = 4;
+
+                        for (var i = 0; i < newCardNumber.length; i += step) {
+                          newStr += newCardNumber.substring(
+                              i, math.min(i + step, newCardNumber.length));
+                          if (i + step < newCardNumber.length) newStr += ' ';
+                        }
+
+                        setState(() {
+                          cardNumber = newStr;
+                        });
+                      },
+                    ),
+                  ),
+                  Container(
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                      ),
+                      child: TextFormField(
+                        validator: (s) {
+                          if (s?.isEmpty ?? true) {
+                            return "Yaroqlilik Muddatini Kiriting";
+                          }
+                          return null;
+                        },
+                        controller: expiryFieldCtrl,
+                        keyboardType: TextInputType.number,
+                        decoration:
+                            const InputDecoration(hintText: 'Yaroqli muddati'),
+                        maxLength: 5,
+                        onChanged: (value) {
+                          var newDateValue = value.trim();
+                          final isPressingBackspace =
+                              expiryDate.length > newDateValue.length;
+                          final containsSlash = newDateValue.contains('/');
+
+                          if (newDateValue.length >= 2 &&
+                              !containsSlash &&
+                              !isPressingBackspace) {
+                            newDateValue = newDateValue.substring(0, 2) +
+                                '/' +
+                                newDateValue.substring(2);
+                          }
+                          setState(() {
+                            expiryFieldCtrl.text = newDateValue;
+                            expiryFieldCtrl.selection =
+                                TextSelection.fromPosition(
+                                    TextPosition(offset: newDateValue.length));
+                            expiryDate = newDateValue;
+                          });
+                        },
+                      )),
+                  iserror
+                      ? SizedBox.shrink()
+                      : Text(
+                          'Yaroqlilik Muddatini Tugri kiriting!',
+                          style: Style.textNormSizeLightMode(
+                            size: 14,
+                            textColor: Colors.red,
+                          ),
+                        ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                    ),
+                    child: TextFormField(
+                      validator: (s) {
+                        if (s?.isEmpty ?? true) {
+                          return "Ism Familyangizni kirting";
+                        }
+                        return null;
+                      },
+                      keyboardType: TextInputType.name,
+                      decoration:
+                          const InputDecoration(hintText: 'Ism Familiya'),
+                      onChanged: (value) {
+                        setState(() {
+                          cardHolderName = value;
+                        });
+                      },
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 25),
+                    child: TextFormField(
+                      validator: (s) {
+                        if (s?.isEmpty ?? true) {
+                          return "Mahviy Kodni kiriting";
+                        }
+                        return null;
+                      },
+                      decoration: const InputDecoration(hintText: 'Mahviy Kod'),
+                      maxLength: 3,
+                      keyboardType: TextInputType.number,
+                      onChanged: (value) {
+                        setState(() {
+                          cvv = value;
+                        });
+                      },
+                      focusNode: _focusNode,
+                    ),
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: const Color(0xFF49B7AE),
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 15,
+                        horizontal: 30,
+                      ),
+                    ),
+                    onPressed: () {
+                      if (formKey.currentState?.validate() ?? false) {
+                        if (ChekDate(expiryDate)) {
+                          iserror = true;
+                          setState(() {});
+                          print('Hello');
+                        } else {
+                          iserror = false;
+                          setState(() {});
+                        }
+                      }
+                    },
+                    child:
+                        const Text("Add Card", style: TextStyle(fontSize: 24)),
+                  )
+                ],
+              )
             ],
           ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              context.read<FilterCubit>().addAlldatas(
-                    name: namecontroller.text,
-                    lastname: lastnamecontroller.text,
-                    type: typecontroller.text,
-                    kirdi: 0,
-                    chiqdi: 0,
-                    pincode: 123,
-                    imgeindex: 1,
-                    number: numbercontroller.text,
-                    date: datecontroller.text,
-                  );
-              print('Tax');
-            },
-          ),
-        );
-      },
+        ),
+      ),
     );
   }
 }
