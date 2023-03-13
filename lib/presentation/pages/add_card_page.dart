@@ -64,6 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               CreditCard(
                 cardNumber: cardNumber,
+                bankName: "Jabik Bank",
                 cardExpiry: expiryDate,
                 cardHolderName: cardHolderName,
                 cvv: cvv,
@@ -216,7 +217,17 @@ class _MyHomePageState extends State<MyHomePage> {
                         if (ChekDate(expiryDate)) {
                           iserror = true;
                           setState(() {});
-                          print('Hello');
+                          context.read<FilterCubit>().addAlldatas(
+                                name: cardHolderName,
+                                chiqdi: 0,
+                                kirdi: 0,
+                                date: expiryDate,
+                                number: cardNumber,
+                                type: 'images/visa.png',
+                                imgeindex: 1,
+                                cvv: int.parse(cvv),
+                                allcost: 0,
+                              );
                         } else {
                           iserror = false;
                           setState(() {});

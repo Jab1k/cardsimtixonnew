@@ -18,7 +18,7 @@ class HistoryCubit extends Cubit<HistoryState> {
     var res = await firestore.collection('Cards').get();
     history.clear();
     for (var element in res.docs) {
-      if (element.data().isNotEmpty) {
+      if (element.data()['history'] != null) {
         // print(element.data()['history']);
         lst = element.data()['history'];
         lst.forEach((element) {

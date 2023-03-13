@@ -206,7 +206,7 @@ class _HomePageState extends State<HomePage> {
                                                               .start,
                                                       children: <Widget>[
                                                         Text(
-                                                          '${stat.cards?[index].name ?? "SuperHuman"} ${stat.cards?[0].lastname ?? ''}',
+                                                          '${stat.cards?[index].name ?? "SuperHuman"}',
                                                           style: Style.oppoq(
                                                               size: 20),
                                                         ),
@@ -251,7 +251,10 @@ class _HomePageState extends State<HomePage> {
                                                             ),
                                                             const Spacer(),
                                                             Image.asset(
-                                                                'images/visa.png')
+                                                              stat.cards?[index]
+                                                                      .type ??
+                                                                  'images/visa.png',
+                                                            )
                                                           ],
                                                         )
                                                       ],

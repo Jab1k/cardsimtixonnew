@@ -44,7 +44,6 @@ class FilterCubit extends Cubit<Filterstate> {
 
   void addAlldatas({
     String? name,
-    String? lastname,
     String? date,
     String? number,
     String? type,
@@ -57,7 +56,6 @@ class FilterCubit extends Cubit<Filterstate> {
   }) async {
     firestore.collection('Cards').add(CardsModel(
           name: name,
-          lastname: lastname,
           date: date,
           number: number,
           type: type,
@@ -65,7 +63,6 @@ class FilterCubit extends Cubit<Filterstate> {
           kirdi: kirdi,
           cvv: cvv,
           imgeindex: imgeindex,
-          pincode: pincode,
           allcost: allcost,
         ).toJson());
   }
