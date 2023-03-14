@@ -29,6 +29,14 @@ class CardsModel {
   }
   toJson() {
     return {
+      'history': [
+        {
+          'date': null,
+          'cost': 0,
+          'card': null,
+          'name': null,
+        }
+      ],
       "name": name,
       "chiqdi": chiqdi,
       'kirdi': kirdi,

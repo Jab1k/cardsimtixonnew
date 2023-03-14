@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_interpolation_to_compose_strings
+
 import 'dart:math' as math;
 import 'package:cardsnew/application/cubit/filter_cubit.dart';
 import 'package:cardsnew/presentation/styles/colors.dart';
@@ -25,6 +27,13 @@ class _MyHomePageState extends State<MyHomePage> {
   bool showBack = false;
 
   late FocusNode _focusNode;
+
+  List images = [
+    'images/Base.png',
+    'images/Base1.png',
+    'images/Base2.png',
+  ];
+  int index1 = 0;
   TextEditingController cardNumberCtrl = TextEditingController();
   TextEditingController expiryFieldCtrl = TextEditingController();
 
@@ -73,6 +82,35 @@ class _MyHomePageState extends State<MyHomePage> {
                 backBackground: CardBackgrounds.white,
                 showShadow: true,
                 // mask: getCardTypeMask(cardType: CardType.americanExpress),
+              ),
+              const SizedBox(
+                height: 40,
+              ),
+              SizedBox(
+                width: double.infinity,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: images.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        index1 = index;
+                      },
+                      child: Container(
+                        width: 150,
+                        height: 150,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: AssetImage(
+                                images[index],
+                              )),
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                    );
+                  },
+                ),
               ),
               const SizedBox(
                 height: 40,
@@ -153,12 +191,14 @@ class _MyHomePageState extends State<MyHomePage> {
                         },
                       )),
                   iserror
-                      ? SizedBox.shrink()
-                      : Text(
-                          'Yaroqlilik Muddatini Tugri kiriting!',
-                          style: Style.textNormSizeLightMode(
-                            size: 14,
-                            textColor: Colors.red,
+                      ? const SizedBox.shrink()
+                      : Center(
+                          child: Text(
+                            'Yaroqlilik Muddatini Tugri kiriting!',
+                            style: Style.textNormSizeLightMode(
+                              size: 14,
+                              textColor: Colors.red,
+                            ),
                           ),
                         ),
                   Container(
@@ -203,39 +243,44 @@ class _MyHomePageState extends State<MyHomePage> {
                       focusNode: _focusNode,
                     ),
                   ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      backgroundColor: const Color(0xFF49B7AE),
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 15,
-                        horizontal: 30,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Center(
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.blue,
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 15,
+                            horizontal: 30,
+                          ),
+                        ),
+                        onPressed: () {
+                          if (formKey.currentState?.validate() ?? false) {
+                            if (ChekDate(expiryDate)) {
+                              iserror = true;
+                              setState(() {});
+                              context.read<FilterCubit>().addAlldatas(
+                                    name: cardHolderName,
+                                    chiqdi: 0,
+                                    kirdi: 0,
+                                    date: expiryDate,
+                                    number: cardNumber,
+                                    type: 'images/visa.png',
+                                    imgeindex: index1,
+                                    cvv: int.parse(cvv),
+                                    allcost: 0,
+                                  );
+                            } else {
+                              iserror = false;
+                              setState(() {});
+                            }
+                          }
+                        },
+                        child: const Text("Add Card",
+                            style: TextStyle(fontSize: 24)),
                       ),
                     ),
-                    onPressed: () {
-                      if (formKey.currentState?.validate() ?? false) {
-                        if (ChekDate(expiryDate)) {
-                          iserror = true;
-                          setState(() {});
-                          context.read<FilterCubit>().addAlldatas(
-                                name: cardHolderName,
-                                chiqdi: 0,
-                                kirdi: 0,
-                                date: expiryDate,
-                                number: cardNumber,
-                                type: 'images/visa.png',
-                                imgeindex: 1,
-                                cvv: int.parse(cvv),
-                                allcost: 0,
-                              );
-                        } else {
-                          iserror = false;
-                          setState(() {});
-                        }
-                      }
-                    },
-                    child:
-                        const Text("Add Card", style: TextStyle(fontSize: 24)),
                   )
                 ],
               )

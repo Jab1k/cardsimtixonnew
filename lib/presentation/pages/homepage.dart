@@ -310,99 +310,110 @@ class _HomePageState extends State<HomePage> {
                                         itemBuilder: (context, index) {
                                           return Padding(
                                             padding: const EdgeInsets.all(8.0),
-                                            child: Container(
-                                              width: double.infinity,
-                                              height: 65,
-                                              decoration: Style.addushi(),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Container(
-                                                    width: 50,
-                                                    height: 50,
-                                                    decoration: Style.dumoloq(
-                                                      textColor:
-                                                          Colors.transparent,
-                                                    ),
-                                                    child: Image.asset(
-                                                        'images/boy.png'),
-                                                  ),
-                                                  16.horizontalSpaceRadius,
-                                                  Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    children: [
-                                                      14.verticalSpaceFromWidth,
-                                                      state.history?[index].cost
-                                                                      .toString()[
-                                                                  0] ==
-                                                              '-'
-                                                          ? Text(
-                                                              "${state.history?[index].name}ga Pul O'tqazildi",
-                                                              style:
-                                                                  Style.qopqora(
-                                                                      size: 16),
-                                                            )
-                                                          : Text(
-                                                              "${state.history?[index].name}dan Pul tushdi",
-                                                              style:
-                                                                  Style.qopqora(
-                                                                      size: 16),
-                                                            )
-                                                    ],
-                                                  ),
-                                                  const Spacer(),
-                                                  state.history?[index].cost
-                                                              .toString()[0] ==
-                                                          '-'
-                                                      ? Container(
-                                                          width: 80,
-                                                          height: 30,
-                                                          decoration:
-                                                              Style.addushi(
-                                                                  // ignore: prefer_const_constructors
-                                                                  textColor: Colors
-                                                                      .redAccent),
-                                                          child: Center(
-                                                            child: Text(
-                                                              '${state.history?[index].cost}',
-                                                              style: Style
-                                                                  .textNormSizeLightMode(
-                                                                textColor:
-                                                                    Colors
-                                                                        .white,
+                                            child:
+                                                state.history?[index].card
+                                                            ?.isNotEmpty ??
+                                                        false
+                                                    ? Container(
+                                                        width: double.infinity,
+                                                        height: 65,
+                                                        decoration:
+                                                            Style.addushi(),
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Container(
+                                                              width: 50,
+                                                              height: 50,
+                                                              decoration:
+                                                                  Style.dumoloq(
+                                                                textColor: Colors
+                                                                    .transparent,
                                                               ),
+                                                              child: Image.asset(
+                                                                  'images/boy.png'),
                                                             ),
-                                                          ),
-                                                        )
-                                                      : Container(
-                                                          width: 80,
-                                                          height: 30,
-                                                          decoration:
-                                                              Style.addushi(
-                                                                  // ignore: prefer_const_constructors
-                                                                  textColor:
-                                                                      Colors
-                                                                          .green),
-                                                          child: Center(
-                                                            child: Text(
-                                                              '+${state.history?[index].cost}',
-                                                              style: Style
-                                                                  .textNormSizeLightMode(
-                                                                textColor:
-                                                                    Colors
-                                                                        .white,
-                                                              ),
+                                                            16.horizontalSpaceRadius,
+                                                            Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                14.verticalSpaceFromWidth,
+                                                                state.history?[index]
+                                                                            .cost
+                                                                            .toString()[0] ==
+                                                                        '-'
+                                                                    ? Text(
+                                                                        "${state.history?[index].name}ga Pul O'tqazildi",
+                                                                        style: Style.qopqora(
+                                                                            size:
+                                                                                16),
+                                                                      )
+                                                                    : Text(
+                                                                        "${state.history?[index].name}dan Pul tushdi",
+                                                                        style: Style.qopqora(
+                                                                            size:
+                                                                                16),
+                                                                      )
+                                                              ],
                                                             ),
-                                                          ),
+                                                            const Spacer(),
+                                                            state.history?[index]
+                                                                        .cost
+                                                                        .toString()[0] ==
+                                                                    '-'
+                                                                ? Container(
+                                                                    width: 80,
+                                                                    height: 30,
+                                                                    decoration: Style
+                                                                        .addushi(
+                                                                            // ignore: prefer_const_constructors
+                                                                            textColor:
+                                                                                Colors.redAccent),
+                                                                    child:
+                                                                        Center(
+                                                                      child:
+                                                                          Text(
+                                                                        '${state.history?[index].cost}',
+                                                                        style: Style
+                                                                            .textNormSizeLightMode(
+                                                                          textColor:
+                                                                              Colors.white,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  )
+                                                                : Container(
+                                                                    width: 80,
+                                                                    height: 30,
+                                                                    decoration: Style
+                                                                        .addushi(
+                                                                            // ignore: prefer_const_constructors
+                                                                            textColor:
+                                                                                Colors.green),
+                                                                    child:
+                                                                        Center(
+                                                                      child:
+                                                                          Text(
+                                                                        '+${state.history?[index].cost}',
+                                                                        style: Style
+                                                                            .textNormSizeLightMode(
+                                                                          textColor:
+                                                                              Colors.white,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                          ],
                                                         ),
-                                                ],
-                                              ),
-                                            ),
+                                                      )
+                                                    : SizedBox.shrink(),
                                           );
                                         },
                                       ),
