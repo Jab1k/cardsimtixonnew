@@ -4,6 +4,7 @@ import 'package:animated_digit/animated_digit.dart';
 import 'package:cardsnew/application/cubit/filter_cubit.dart';
 import 'package:cardsnew/application/cubit/history_cubit.dart';
 import 'package:cardsnew/presentation/companents/newcom.dart';
+import 'package:cardsnew/presentation/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -113,11 +114,16 @@ class ListviewBuilder extends StatelessWidget {
                                                               stat.cards
                                                                   ?.removeAt(
                                                                       index);
-                                                              context.read<
-                                                                  FilterCubit>().delete(index);
+                                                              context
+                                                                  .read<
+                                                                      FilterCubit>()
+                                                                  .delete(
+                                                                      index);
+                                                              Navigator.pop(
+                                                                  context);
                                                             },
                                                             child: const Text(
-                                                              "Yoq",
+                                                              "Xa",
                                                             ),
                                                           ),
                                                         ],
