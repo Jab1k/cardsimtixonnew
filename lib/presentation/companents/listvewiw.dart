@@ -81,11 +81,52 @@ class ListviewBuilder extends StatelessWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Text(
-                                      '${stat.cards?[index].name ?? "SuperHuman"}',
-                                      style: Style.oppoq(size: 20),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          stat.cards?[index].name ??
+                                              "SuperHuman",
+                                          style: Style.oppoq(size: 20),
+                                        ),
+                                        const Spacer(),
+                                        IconButton(
+                                            onPressed: () {
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (_) => AlertDialog(
+                                                        title: Text(
+                                                            "waiting_delete",
+                                                            style: Style
+                                                                .qopqora()),
+                                                        actions: [
+                                                          ElevatedButton(
+                                                            onPressed: () {
+                                                              Navigator.pop(
+                                                                  context);
+                                                            },
+                                                            child: const Text(
+                                                              "Yoq",
+                                                            ),
+                                                          ),
+                                                          ElevatedButton(
+                                                            onPressed: () {
+                                                              stat.cards
+                                                                  ?.removeAt(
+                                                                      index);
+                                                              context.read<
+                                                                  FilterCubit>().delete(index);
+                                                            },
+                                                            child: const Text(
+                                                              "Yoq",
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ));
+                                            },
+                                            icon: const Icon(Icons.delete))
+                                      ],
                                     ),
-                                    7.verticalSpaceFromWidth,
+                                    2.verticalSpaceFromWidth,
                                     AnimatedDigitWidget(
                                       valueColors: [
                                         ValueColor(
@@ -97,7 +138,6 @@ class ListviewBuilder extends StatelessWidget {
                                       value: int.parse(
                                           stat.cards?[index].number ?? '1'),
                                     ),
-                                    20.verticalSpaceFromWidth,
                                     Text(
                                       'Balance',
                                       style: Style.oppoq(size: 16),

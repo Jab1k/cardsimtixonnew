@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 
 import 'package:cardsnew/application/cubit/filter_cubit.dart';
@@ -35,23 +37,6 @@ class _CardToCardState extends State<CardToCard> {
     print(fcmToken);
     FirebaseMessaging.onMessage.listen((event) {
       print(event.data);
-      showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    event.data["body"] ?? "body",
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  Text(event.data["title"] ?? "title",
-                      style: TextStyle(color: Colors.black)),
-                ],
-              ),
-            );
-          });
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((event) {

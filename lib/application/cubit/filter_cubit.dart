@@ -13,6 +13,7 @@ class FilterCubit extends Cubit<Filterstate> {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   List<CardsModel> cardslist = [];
   CardsModel? cardsModel;
+  List lstfordocs = [];
   int a = 0;
   bool isloading = false;
   void getAllDatas() async {
@@ -21,6 +22,10 @@ class FilterCubit extends Cubit<Filterstate> {
     var res = await firestore.collection('Cards').get();
     a = res.docs.length;
     cardslist.clear();
+    res.docs.forEach((element) {
+      lstfordocs.add(element.id);
+    });
+    print(lstfordocs);
     for (var element in res.docs) {
       if (element.data().isNotEmpty) {
         print("${element.data()} All datas");
@@ -35,11 +40,9 @@ class FilterCubit extends Cubit<Filterstate> {
     emit(state);
   }
 
-  bool isError(bool a) {
-    if (a) {
-      return true;
-    }
-    return false;
+  void delete(int index) {
+    firestore.collection('Cards').doc(lstfordocs[index]).delete();
+    emit(state);
   }
 
   void addAlldatas({
