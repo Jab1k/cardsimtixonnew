@@ -12,4 +12,12 @@ class Historymodel {
       cost: data['cost'],
     );
   }
+  toJson() {
+    return {
+      'cost': cost,
+      'card': card,
+      'date': date,
+      'name': name,
+    };
+  }
 }

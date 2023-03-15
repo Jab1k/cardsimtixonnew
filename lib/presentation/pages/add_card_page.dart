@@ -1,7 +1,7 @@
-// ignore_for_file: prefer_interpolation_to_compose_strings
-
 import 'dart:math' as math;
 import 'package:cardsnew/application/cubit/filter_cubit.dart';
+import 'package:cardsnew/presentation/pages/homepage.dart';
+import 'package:cardsnew/presentation/routes.dart';
 import 'package:cardsnew/presentation/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_card/awesome_card.dart';
@@ -88,6 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               SizedBox(
                 width: double.infinity,
+                height: 100,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: images.length,
@@ -192,13 +193,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       )),
                   iserror
                       ? const SizedBox.shrink()
-                      : Center(
-                          child: Text(
-                            'Yaroqlilik Muddatini Tugri kiriting!',
-                            style: Style.textNormSizeLightMode(
-                              size: 14,
-                              textColor: Colors.red,
-                            ),
+                      : Text(
+                          'Yaroqlilik Muddatini Tugri kiriting!',
+                          style: Style.textNormSizeLightMode(
+                            size: 14,
+                            textColor: Colors.red,
                           ),
                         ),
                   Container(
@@ -271,6 +270,22 @@ class _MyHomePageState extends State<MyHomePage> {
                                     cvv: int.parse(cvv),
                                     allcost: 0,
                                   );
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    actions: [
+                                      Center(
+                                        child: Image.asset('images/allset.gif'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                              Future.delayed(const Duration(seconds: 3))
+                                  .then((value) => Navigator.of(context).push(
+                                        Routes.goHomepage(),
+                                      ));
                             } else {
                               iserror = false;
                               setState(() {});

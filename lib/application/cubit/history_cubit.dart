@@ -1,7 +1,10 @@
 // ignore_for_file: avoid_print, depend_on_referenced_packages
 
+import 'dart:js';
+
 import 'package:bloc/bloc.dart';
 import 'package:cardsnew/domains/model/historymodel.dart';
+import 'package:cardsnew/domains/model/model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 part 'history_state.dart';

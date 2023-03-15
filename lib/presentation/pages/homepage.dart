@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
   ];
   List routes = [
     Routes.goHisobnitul(),
-    Routes.goHisobnitul(),
+    Routes.goCardtoCardPage(),
     Routes.goHisobnitul(),
     Routes.goCardsPage(),
   ];
@@ -62,6 +62,7 @@ class _HomePageState extends State<HomePage> {
         return BlocBuilder<HistoryCubit, HistoryState>(
           builder: (con, state) {
             return Scaffold(
+                resizeToAvoidBottomInset: false,
                 endDrawerEnableOpenDragGesture: false,
                 backgroundColor: Colors.white,
                 drawer: const Drawer(),
