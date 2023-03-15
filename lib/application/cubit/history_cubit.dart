@@ -4,7 +4,10 @@ import 'package:bloc/bloc.dart';
 import 'package:cardsnew/domains/model/historymodel.dart';
 import 'package:cardsnew/domains/model/model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 
+import 'package:http/http.dart' as http;
 part 'history_state.dart';
 
 class HistoryCubit extends Cubit<HistoryState> {

@@ -69,7 +69,6 @@ class Style {
           borderRadius: Borderradiuses.unOltinchi,
         ),
       );
-
   static dumoloq({
     Color textColor = Colors.blue,
   }) =>
@@ -79,7 +78,6 @@ class Style {
         color: textColor,
         shape: BoxShape.circle,
       );
-  
   static addushi({
     Color textColor = Colors.white,
   }) =>

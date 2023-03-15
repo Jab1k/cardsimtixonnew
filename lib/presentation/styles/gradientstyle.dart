@@ -28,7 +28,6 @@ abstract class Gradients {
     colors: <Color>[
       Color.fromARGB(255, 178, 171, 171),
       Color.fromARGB(255, 96, 91, 91),
-
       //add more colors for gradient
     ],
     begin: Alignment.topLeft, //begin of the gradient color
@@ -36,7 +35,6 @@ abstract class Gradients {
     //stops for individual color
     //set the stops number equal to numbers of color
   );
-
   // ignore: prefer_const_constructors
   static final onboardingImageGradient5 = LinearGradient(
     colors: const [

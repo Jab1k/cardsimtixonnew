@@ -64,10 +64,6 @@ class _HomePageState extends State<HomePage> {
           builder: (con, state) {
             return Scaffold(
                 resizeToAvoidBottomInset: false,
-                endDrawerEnableOpenDragGesture: false,
-                backgroundColor: Colors.white,
-                drawer: const Drawer(),
-                drawerScrimColor: Colors.grey,
                 appBar: AppBar(
                   title: Text(
                     "${stat.cards?.first.name ?? "SuperHuman"}",
@@ -75,21 +71,6 @@ class _HomePageState extends State<HomePage> {
                   ),
                   elevation: 0,
                   backgroundColor: Colors.white,
-                  leading: Builder(
-                    builder: (BuildContext context) {
-                      return IconButton(
-                        icon: const Icon(
-                          Icons.settings,
-                          color: Colors.black,
-                        ),
-                        onPressed: () {
-                          Scaffold.of(context).openDrawer();
-                        },
-                        tooltip: MaterialLocalizations.of(context)
-                            .openAppDrawerTooltip,
-                      );
-                    },
-                  ),
                 ),
                 body: Column(
                   children: <Widget>[
