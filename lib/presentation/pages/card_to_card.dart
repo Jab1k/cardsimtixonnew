@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:cardsnew/application/cubit/filter_cubit.dart';
 import 'package:cardsnew/application/cubit/history_cubit.dart';
+import 'package:cardsnew/presentation/routes.dart';
 import 'package:cardsnew/presentation/styles/colors.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -123,8 +124,9 @@ class _CardToCardState extends State<CardToCard> {
                         24.verticalSpaceFromWidth,
                         GestureDetector(
                           onTap: () {
-                            if ((formKey.currentState?.validate() ?? false) &&
-                                stat.cards?[0].allcost != null) {
+                            var a = int.parse(costcontroller.text.trim());
+                            if (formKey.currentState!.validate()) {
+                              if (a <= stat.cards![0].allcost!) {}
                               context.read<HistoryCubit>().addAlldatas(
                                   name1: _namecontroller.text,
                                   name: stat.cards?.first.name,
@@ -157,6 +159,7 @@ class _CardToCardState extends State<CardToCard> {
                                   },
                                 ),
                               );
+                              Navigator.push(context, Routes.goHomepage());
                             } else {
                               showDialog(
                                 context: context,
