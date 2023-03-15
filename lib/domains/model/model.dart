@@ -46,4 +46,29 @@ class CardsModel {
       'Allcost': allcost
     };
   }
+
+  toJsonhist({
+    String? date,
+    int? cost,
+    String? card,
+    String? name,
+  }) {
+    return {
+      'history': [
+        {
+          'date': date,
+          'cost': 0,
+          'card': card,
+          'name': name,
+        }
+      ],
+      "name": name,
+      "chiqdi": chiqdi,
+      'kirdi': kirdi,
+      'cvv': cvv,
+      'date': date,
+      'imageindex': imgeindex,
+      'Allcost': allcost
+    };
+  }
 }

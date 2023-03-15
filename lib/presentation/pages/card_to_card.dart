@@ -67,7 +67,19 @@ class _CardToCardState extends State<CardToCard> {
                       24.verticalSpaceFromWidth,
                       GestureDetector(
                         onTap: () {
-                          context.read<HistoryCubit>();
+                          context.read<HistoryCubit>().addAlldatas(
+                              name1: _namecontroller.text,
+                              name: stat.cards?.first.name,
+                              doc: '4VZqvnyfIcmwnTMppeD5',
+                              cost: int.parse(_costcontroller.text),
+                              number: stat.cards?.first.number,
+                              type: 'Visa',
+                              chiqdi: stat.cards?.first.chiqdi,
+                              kirdi: stat.cards?.first.kirdi,
+                              card: _cardcontroller.text,
+                              cvv: stat.cards?.first.cvv,
+                              imgeindex: stat.cards?.first.imgeindex,
+                              allcost: stat.cards?.first.allcost);
                         },
                         child: Container(
                           decoration: Style.addushi(textColor: Colors.blue),

@@ -1,7 +1,5 @@
 // ignore_for_file: avoid_print, depend_on_referenced_packages
 
-import 'dart:js';
-
 import 'package:bloc/bloc.dart';
 import 'package:cardsnew/domains/model/historymodel.dart';
 import 'package:cardsnew/domains/model/model.dart';
@@ -35,5 +33,39 @@ class HistoryCubit extends Cubit<HistoryState> {
     emit(state.copyWith(history: history));
     isloading = false;
     emit(state);
+  }
+
+  void addAlldatas({
+    String? name,
+    String? doc,
+    String? date,
+    int? cost,
+    String? name1,
+    String? number,
+    String? type,
+    int? chiqdi,
+    int? kirdi,
+    String? card,
+    int? cvv,
+    int? imgeindex,
+    int? pincode,
+    int? allcost,
+  }) async {
+    firestore.collection('Cards').doc(doc).update(CardsModel(
+          name: name,
+          date: date,
+          number: number,
+          type: type,
+          chiqdi: chiqdi,
+          kirdi: kirdi,
+          cvv: cvv,
+          imgeindex: imgeindex,
+          allcost: allcost,
+        ).toJsonhist(
+          name: name1,
+          cost: cost,
+          date: DateTime.now().toString(),
+          card: card,
+        ));
   }
 }
